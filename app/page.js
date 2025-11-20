@@ -57,9 +57,9 @@ export default function Page(){
   return (
     <div className="container">
       <div className="header">
-        <div className="brand">School AI Tutor</div>
+        <div className="brand">SAIS AI Tutor</div>
         <div style={{flex:1}} />
-        <div className="small">Modo Socrático • Sem respostas diretas</div>
+        <div className="small"></div>
       </div>
 
       <div className="chat" ref={chatRef}>
@@ -77,7 +77,19 @@ export default function Page(){
       </div>
 
       <div className="composer">
-        <textarea value={text} onChange={e=>setText(e.target.value)} placeholder="Escreve a tua pergunta..."/>
+        <textarea
+  value={input}
+  onChange={(e) => setInput(e.target.value)}
+  onKeyDown={(e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  }}
+  placeholder="Type your message..."
+  className="w-full p-3 border rounded-lg resize-none"
+  rows={2}
+/>
         <button className="btn" onClick={send}>Enviar</button>
       </div>
     </div>
