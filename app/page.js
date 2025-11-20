@@ -117,6 +117,7 @@ export default function Page() {
 
   return (
     <main className="page-root">
+    <div className="header-logo"><img src="/sais-estoril-vb.svg" alt="SAIS" /></div>
       <div className="chat-shell">
         <header className="chat-header">
           <div className="brand">SAIS AI Tutor</div>
