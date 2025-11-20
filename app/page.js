@@ -28,6 +28,14 @@ export default function Page() {
   return text.replace(/\n{3,}/g, "\n\n").trim();
   }
   
+  // Converts single line breaks into double line breaks for Markdown rendering
+function preprocessMarkdown(text) {
+  // First clean excessive blank lines
+  let cleanText = cleanResponse(text);
+  // Replace single \n (not part of list or heading) with two \n
+  return cleanText.replace(/([^\n])\n([^\n*#-])/g, "$1\n\n$2");
+}
+  
   function onFilesSelected(e) {
     const sel = Array.from(e.target.files || []);
     if (sel.length === 0) return;
@@ -136,7 +144,8 @@ export default function Page() {
               className={`message-row ${m.role === "user" ? "from-user" : "from-assistant"}`}
             >
               <div className="message-bubble">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.content}</ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{preprocessMarkdown(m.content)}</ReactMarkdown>
+
               </div>
             </div>
           ))}
