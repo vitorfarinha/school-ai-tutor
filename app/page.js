@@ -23,6 +23,11 @@ export default function Page() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isLoading]);
 
+  // Cleans up multiple empty lines from AI responses
+  function cleanResponse(text) {
+  return text.replace(/\n{3,}/g, "\n\n").trim();
+  }
+  
   function onFilesSelected(e) {
     const sel = Array.from(e.target.files || []);
     if (sel.length === 0) return;
@@ -91,8 +96,8 @@ export default function Page() {
       else if (json.reply?.message?.content) replyText = json.reply.message.content;
       else replyText = JSON.stringify(json.reply).slice(0, 1000);
 
-      const assistantMsg = { role: "assistant", content: replyText };
-      setMessages(prev => [...prev, assistantMsg]);
+     const assistantMsg = { role: "assistant", content: cleanResponse(replyText) };
+    setMessages(prev => [...prev, assistantMsg]);
     } catch (err) {
       console.error("Chat error:", err);
       setMessages(prev => [
