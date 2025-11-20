@@ -28,7 +28,7 @@ export default function Page() {
   // Remove trailing spaces
   let t = text.trim();
   // Collapse 3+ newlines into 2
-  t = t.replace(/\n{3,}/g, "\n\n");
+  t = t.replace(/\n{3,}/g, "\n");
   // Optionally, remove extra spaces inside paragraphs
   t = t.replace(/([^\S\r\n]{2,})/g, " ");
   return t;
@@ -140,7 +140,7 @@ function preprocessMarkdown(text) {
       <div className="chat-shell">
         <header className="chat-header">
           <div className="brand">SAIS AI Tutor</div>
-          <div className="meta">v20.11.15.50</div>
+          <div className="meta">v20.11.20.33</div>
         </header>
 
         <div className="chat-body" role="log" aria-live="polite">
