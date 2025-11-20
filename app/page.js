@@ -24,9 +24,15 @@ export default function Page() {
   }, [messages, isLoading]);
 
   // Cleans up multiple empty lines from AI responses
-  function cleanResponse(text) {
-  return text.replace(/\n{3,}/g, "\n\n").trim();
-  }
+ function cleanResponse(text) {
+  // Remove trailing spaces
+  let t = text.trim();
+  // Collapse 3+ newlines into 2
+  t = t.replace(/\n{3,}/g, "\n\n");
+  // Optionally, remove extra spaces inside paragraphs
+  t = t.replace(/([^\S\r\n]{2,})/g, " ");
+  return t;
+}
   
   // Converts single line breaks into double line breaks for Markdown rendering
 function preprocessMarkdown(text) {
@@ -144,7 +150,7 @@ function preprocessMarkdown(text) {
               className={`message-row ${m.role === "user" ? "from-user" : "from-assistant"}`}
             >
               <div className="message-bubble">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{preprocessMarkdown(m.content)}</ReactMarkdown>
+             <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.content}</ReactMarkdown>
 
               </div>
             </div>
