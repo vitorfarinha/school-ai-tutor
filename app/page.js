@@ -140,7 +140,7 @@ function preprocessMarkdown(text) {
       <div className="chat-shell">
         <header className="chat-header">
           <div className="brand">SAIS AI Tutor</div>
-          <div className="meta">v20.11.20.33</div>
+          <div className="meta">v30.01.20.26</div>
         </header>
 
         <div className="chat-body" role="log" aria-live="polite">
