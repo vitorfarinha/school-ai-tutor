@@ -90,15 +90,6 @@ Never Do:
       content: replyText
     };
 
-    const timeout = new Promise((_, reject) =>
-  setTimeout(() => reject(new Error("OpenAI timeout")), 12000)
-);
-
-const resp = await Promise.race([
-  client.chat.completions.create({...}),
-  timeout
-]);
-
     return NextResponse.json({ reply });
 
   } catch (err) {
