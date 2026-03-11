@@ -77,10 +77,10 @@ Never Do:
           role: "system",
           content: systemPrompt
         },
-        ...messages
+        ...messages.slice(-8)
       ],
       temperature: 0.6,
-      max_output_tokens: 700
+      max_output_tokens: 300
     });
 
     const replyText = resp.output_text || "No reply";
@@ -89,6 +89,15 @@ Never Do:
       role: "assistant",
       content: replyText
     };
+
+    const timeout = new Promise((_, reject) =>
+  setTimeout(() => reject(new Error("OpenAI timeout")), 12000)
+);
+
+const resp = await Promise.race([
+  client.chat.completions.create({...}),
+  timeout
+]);
 
     return NextResponse.json({ reply });
 
